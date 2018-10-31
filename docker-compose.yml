@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  fix-mongodb-permissions:
+    image: 'bitnami/mongodb:4.0'
+    user: root
+    command: chown -R 1001:1001 /bitnami
+    volumes:
+      - /home/vagrant/data/mongodb:/bitnami
+  mongodb:
+    container_name: mongodb-local
+    image: 'bitnami/mongodb:4.0'
+    ports:
+      - "27017:27017"
+    volumes:
+      - /home/vagrant/data/mongodb:/bitnami
+    depends_on:
+      - fix-mongodb-permissions
+        
